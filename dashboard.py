@@ -77,48 +77,48 @@ with tab1:
     st.subheader('Visualisasi Jumlah Penyewa Sepeda')
     plot_pie_chart(yearly_rentals_df)
     
-#Membuat visualisasi tren penyewa sepeda dalam bulan
-monthly_rentals_df = data[['mnth', 'cnt']].groupby('mnth').sum().reset_index()
-# Fungsi untuk membuat plot bar
-def plot_bar_chart(df):
-    plt.figure(figsize=(12, 6))
-    plt.bar(df['mnth'], df['cnt'], color='lightcoral')
-    plt.title('Distribusi Jumlah Penyewa Sepeda Tiap Bulan')
-    plt.xlabel('Bulan')
-    plt.ylabel('Jumlah Penyewa')
-    plt.xticks(ticks=df['mnth'], labels=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], rotation=45)
-    st.pyplot(plt)# Fungsi untuk membuat scatter plot
-def plot_scatter(x_col, y_col, title, xlabel, ylabel):
-    plt.figure(figsize=(8, 6))
-    plt.scatter(data[x_col], data[y_col])
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    st.pyplot(plt)
-plot_bar_chart(monthly_rentals_df)
+    #Membuat visualisasi tren penyewa sepeda dalam bulan
+    monthly_rentals_df = data[['mnth', 'cnt']].groupby('mnth').sum().reset_index()
+    # Fungsi untuk membuat plot bar
+    def plot_bar_chart(df):
+        plt.figure(figsize=(12, 6))
+        plt.bar(df['mnth'], df['cnt'], color='lightcoral')
+        plt.title('Distribusi Jumlah Penyewa Sepeda Tiap Bulan')
+        plt.xlabel('Bulan')
+        plt.ylabel('Jumlah Penyewa')
+        plt.xticks(ticks=df['mnth'], labels=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], rotation=45)
+        st.pyplot(plt)# Fungsi untuk membuat scatter plot
+    def plot_scatter(x_col, y_col, title, xlabel, ylabel):
+        plt.figure(figsize=(8, 6))
+        plt.scatter(data[x_col], data[y_col])
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        st.pyplot(plt)
+    plot_bar_chart(monthly_rentals_df)
 
-# menampilkan visualisasi tren penyewa sepeda dalam hari
-weekday_rentals_df = data.groupby('weekday')['cnt'].agg(['min', 'max']).reset_index()
-# Fungsi untuk membuat grafik batang horizontal
-def plot_weekday_rentals(df):
-    plt.figure(figsize=(20, 12))
-    plt.barh(df['weekday'], df['min'], height=0.3, label='Min Rentals', color='lightcoral', align='center')
-    plt.barh(df['weekday'], df['max'], height=0.3, label='Max Rentals', color='skyblue', left=df['min'], align='center')
+    # menampilkan visualisasi tren penyewa sepeda dalam hari
+    weekday_rentals_df = data.groupby('weekday')['cnt'].agg(['min', 'max']).reset_index()
+    # Fungsi untuk membuat grafik batang horizontal
+    def plot_weekday_rentals(df):
+        plt.figure(figsize=(20, 12))
+        plt.barh(df['weekday'], df['min'], height=0.3, label='Min Rentals', color='lightcoral', align='center')
+        plt.barh(df['weekday'], df['max'], height=0.3, label='Max Rentals', color='skyblue', left=df['min'], align='center')
 
-    # Menambahkan nilai minimum dan maksimum di samping setiap bar
-    for i, row in df.iterrows():
-        plt.text(row['min'] - 10, i, str(row['min']), color='black', va='center')
-        plt.text(row['min'] + row['max'] + 5, i, str(row['max']), color='black', va='center')
+        # Menambahkan nilai minimum dan maksimum di samping setiap bar
+        for i, row in df.iterrows():
+            plt.text(row['min'] - 10, i, str(row['min']), color='black', va='center')
+            plt.text(row['min'] + row['max'] + 5, i, str(row['max']), color='black', va='center')
+    
+        plt.title('Tren Penyewa Sepeda Berdasarkan Hari')
+        plt.xlabel('Jumlah Penyewa Sepeda')
+        plt.ylabel('Hari')
+        plt.yticks(ticks=df['weekday'], labels=['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
+        plt.legend()
+        st.pyplot(plt)
 
-    plt.title('Tren Penyewa Sepeda Berdasarkan Hari')
-    plt.xlabel('Jumlah Penyewa Sepeda')
-    plt.ylabel('Hari')
-    plt.yticks(ticks=df['weekday'], labels=['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
-    plt.legend()
-    st.pyplot(plt)
-
-st.subheader('Distribusi Penyewa Sepeda Berdasarkan Hari')
-plot_weekday_rentals(weekday_rentals_df)
+    st.subheader('Distribusi Penyewa Sepeda Berdasarkan Hari')
+    plot_weekday_rentals(weekday_rentals_df)
 
 with tab2:
     # Membuat visualisasi hubungan faktor lingkungan dengan penyewa
