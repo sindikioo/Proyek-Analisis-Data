@@ -9,7 +9,7 @@ st.set_page_config(page_title= "Bike Sharing ", page_icon="🚲", layout="wide")
 st.title("Bike Sharing Dashboard 🚲")
 
 try:
-    data = pd.read_csv('D:/submission/dashboard/dataset_proyek.csv')
+    data = pd.read_csv('dataset_proyek.csv')
 except FileNotFoundError:
     st.error('Data not found. Please upload data first.')
 
